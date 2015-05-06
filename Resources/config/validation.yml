@@ -1,0 +1,10 @@
+# src/SClinicBundle/Resources/config/validation.yml
+cf\SettingsBundle\Entity\CfSettings:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: parameter
+            message: cf.settings.parameter.unique
+    properties:
+        parameter:
+            - NotBlank: { message: "cf.settings.parameter.not_blank" }
+            - Length: { min: 2, max: 100, minMessage: "cf.parameter.parameter.min_length", maxMessage: "cf.parameter.parameter.max_length" }

@@ -1,0 +1,31 @@
+{
+    "name" : "cf/settingsbundle",
+    "description" : "A Settings bundle",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Jose Carlos Ramos Carmenates",
+        "email" : "jramoscarmenates@gmail.com"
+    }],
+    "keywords" : [
+        "demo bundle"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+      "cf/commonbundle": "dev-master",
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Cf\\SettingsBundle" : ""
+        }
+    },
+    "target-dir" : "Cf/SettingsBundle",
+    "repositories" : [{
+    }],
+    "extra" : {
+    "branch-alias" : {
+            "dev-master" : "1.0.0"
+        }
+    }
+}
