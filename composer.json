@@ -13,7 +13,7 @@
         "MIT"
     ],
     "require" : {
-      "cf/commonbundle": "dev-master",
+      "cf/commonbundle": "dev-master"
     },
     "autoload" : {
         "psr-0" : {
