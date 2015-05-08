@@ -1,5 +1,5 @@
 {
-    "name" : "cf/settingsbundle",
+    "name" : "cf/SettingsBundle",
     "description" : "A Settings bundle",
     "type" : "symfony-bundle",
     "authors" : [{
