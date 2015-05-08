@@ -1,5 +1,5 @@
 {
-    "name" : "cf/SettingsBundle",
+    "name" : "cf/settings-bundle",
     "description" : "A Settings bundle",
     "type" : "symfony-bundle",
     "authors" : [{
@@ -13,7 +13,7 @@
         "MIT"
     ],
     "require" : {
-      "cf/commonbundle": "dev-master"
+      "cf/common-bundle": "dev-master"
     },
     "autoload" : {
         "psr-0" : {
