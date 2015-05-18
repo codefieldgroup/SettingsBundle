@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CfSettings
  *
  * @ORM\Table(name="cf_settings")
- * @ORM\Entity(repositoryClass="cf\CommonBundle\Entity\CommonRepository")
+ * @ORM\Entity(repositoryClass="Cf\CommonBundle\Entity\CommonRepository")
  */
 class CfSettings
 {
