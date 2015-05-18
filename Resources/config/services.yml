@@ -1,7 +1,8 @@
 parameters:
 
 services:
-    cf.settingsbundle.cfsettingslistener:
+    cf.settingsbundle:
         class: Cf\SettingsBundle\Listener\CfSettingsListener
+        arguments: ['@service_container']
         calls:
             - [ update_settings, [ @?, @? ] ]
