@@ -20,10 +20,11 @@ class CfSettingsListener
 
     /**
      * @param null $parameter
+     * @param int $json_decode
      *
-     * @return mixed
+     * @return mixed|null
      */
-    public function getSettings( $parameter = null )
+    public function getSettings( $parameter = null, $json_decode = 0 )
     {
         if ($parameter !== null && is_string( $parameter ) && $parameter !== '') {
             $em     = $this->container->get( 'doctrine.orm.entity_manager' );
@@ -35,16 +36,20 @@ class CfSettingsListener
             $result = null;
         }
 
+        if( $json_decode === 1 ){
+            $result = json_decode( $result, true );
+        }
         return $result;
     }
 
     /**
      * @param $parameter
      * @param $value
+     * @param int $json_encode
      *
      * @return mixed
      */
-    public function setSettings( $parameter, $value )
+    public function setSettings( $parameter, $value, $json_encode = 0 )
     {
         $em     = $this->container->get( 'doctrine.orm.entity_manager' );
         $entity = null;
@@ -54,8 +59,12 @@ class CfSettingsListener
             return null;
         }
 
+        if($json_encode === 1) {
+           $value = json_encode( $value, JSON_FORCE_OBJECT );
+        }
+
         if ($entity !== null) {
-            $entity->setValue( $value );
+                $entity->setValue( $value );
         } else {
             $params = [ 'parameter' => $parameter, 'value' => $value ];
             $entity = $this->container->get( 'cf.commonbundle.miscellaneous' )->bindParameters( new CfSettings(), $params );
