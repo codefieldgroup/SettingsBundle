@@ -221,6 +221,7 @@ class ApiSettingsController extends FOSRestController
     {
         //TODO: JCRC: Implementar la seguridad del sistema
         try{
+            $parameter = $request->request->get('parameter');
             if ($parameter !== null) {
                 $em     = $this->getDoctrine()->getManager();
                 $entity = $em->getRepository( 'cfSettingsBundle:CfSettings' )->findOneByParameter( $parameter );
