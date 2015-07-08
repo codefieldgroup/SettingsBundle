@@ -29,16 +29,20 @@ class CfSettingsListener
         if ($parameter !== null && is_string( $parameter ) && $parameter !== '') {
             $em     = $this->container->get( 'doctrine.orm.entity_manager' );
             $entity = $em->getRepository( 'cfSettingsBundle:CfSettings' )->findOneByParameter( $parameter );
-            $result = $entity !== null ? $entity->getValue(): null ;
+            $result = $entity !== null ? $entity->getValue() : null;
         } else {
-            $em = $this->container->get( 'doctrine.orm.entity_manager' );
-            //            $entities = $em->getRepository( 'cfSettingsBundle:CfSettings' )->findAll();
-            $result = null;
+            $em       = $this->container->get( 'doctrine.orm.entity_manager' );
+            $entities = $em->getRepository( 'cfSettingsBundle:CfSettings' )->findAll();
+            /* @var $entity CfSettings */
+            foreach ($entities as $entity) {
+                $result [$entity->getParameter()] = $entity->getValue();
+            }
         }
 
-        if( $json_decode === 1 ){
+        if ($json_decode === 1) {
             $result = json_decode( $result, true );
         }
+
         return $result;
     }
 
@@ -55,16 +59,16 @@ class CfSettingsListener
         $entity = null;
         if ($parameter !== null && is_string( $parameter ) && $parameter !== '') {
             $entity = $em->getRepository( 'cfSettingsBundle:CfSettings' )->findOneByParameter( $parameter );
-        }else{
+        } else {
             return null;
         }
 
-        if($json_encode === 1) {
-           $value = json_encode( $value, JSON_FORCE_OBJECT );
+        if ($json_encode === 1) {
+            $value = json_encode( $value, JSON_FORCE_OBJECT );
         }
 
         if ($entity !== null) {
-                $entity->setValue( $value );
+            $entity->setValue( $value );
         } else {
             $params = [ 'parameter' => $parameter, 'value' => $value ];
             $entity = $this->container->get( 'cf.commonbundle.miscellaneous' )->bindParameters( new CfSettings(), $params );

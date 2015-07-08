@@ -57,7 +57,7 @@ class CfSettings
      *
      * @param string $parameter
      *
-     * @return Settings
+     * @return CfSettings
      */
     public function setParameter( $parameter )
     {
@@ -81,7 +81,7 @@ class CfSettings
      *
      * @param string $value
      *
-     * @return Settings
+     * @return CfSettings
      */
     public function setValue( $value )
     {
@@ -105,7 +105,7 @@ class CfSettings
      *
      * @param string $description
      *
-     * @return Settings
+     * @return CfSettings
      */
     public function setDescription( $description )
     {
