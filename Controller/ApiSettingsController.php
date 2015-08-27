@@ -28,10 +28,18 @@ class ApiSettingsController extends FOSRestController
     public $parameter;
 
     /**
+     * @var
+     */
+    private $role_name;
+
+    /**
      * Constructor
      */
     function __construct()
     {
+        $this->role_name = 'ROLE_SETTINGS_';
+
+
         $this->parameter = ['length_row' => '10000', 'count' => -1, 'class_name_entity' => new CfSettings()];
     }
 
@@ -44,13 +52,16 @@ class ApiSettingsController extends FOSRestController
      */
     public function cgetAction(Request $request)
     {
-        // TODO: JCRC: Implementar la seguridad del sistema
         try {
-            $em = $this->getDoctrine()->getManager();
+            $utils = $this->get('cf.sclinicbundle.utils');
             $entities = [];
             $code = $request->query->has('code') ? $request->query->get('code') : null;
             switch ($code) {
                 case 'list' :
+                    /* Checking security access */
+                    if (($accessDeny = $utils->checkSecurity($this->role_name.'LIST')) !== null) {
+                        return $accessDeny;
+                    }
                     $entities = $this->get('cf.settingsbundle')->getSettings();
                     break;
                 default:
@@ -92,9 +103,8 @@ class ApiSettingsController extends FOSRestController
      */
     public function getAction(Request $request, $parameter)
     {
-        // TODO: JCRC: Implementar la seguridad del sistema
         try {
-            $em = $this->getDoctrine()->getManager();
+            $utils = $this->get('cf.sclinicbundle.utils');
             $msg = [];
             $entities = [];
             // Find by id
@@ -102,6 +112,10 @@ class ApiSettingsController extends FOSRestController
                 $code = $request->query->has('code') ? $request->query->get('code') : null;
                 switch ($code) {
                     case 'show' :
+                        /* Checking security access */
+                        if (($accessDeny = $utils->checkSecurity($this->role_name.'SHOW')) !== null) {
+                            return $accessDeny;
+                        }
                         $entities = $this->get('cf.settingsbundle')->getSettings($parameter);
                         break;
                     default:
@@ -148,9 +162,12 @@ class ApiSettingsController extends FOSRestController
      */
     public function postAction(Request $request)
     {
-        // TODO: JCRC: Implementar la seguridad del sistema
-        // Get current user.
-        //$this->get('cf.userbundle.listener.user')->getUser();
+        $utils = $this->get('cf.sclinicbundle.utils');
+        /* Checking security access */
+        if (($accessDeny = $utils->checkSecurity($this->role_name.'CREATE')) !== null) {
+            return $accessDeny;
+        }
+        return null;
         try {
             $em = $this->getDoctrine()->getManager();
 
@@ -200,7 +217,11 @@ class ApiSettingsController extends FOSRestController
      */
     public function putAction(Request $request, $parameter)
     {
-        //TODO: JCRC: Implementar la seguridad del sistema
+        $utils = $this->get('cf.sclinicbundle.utils');
+        /* Checking security access */
+        if (($accessDeny = $utils->checkSecurity($this->role_name.'EDIT')) !== null) {
+            return $accessDeny;
+        }
         try {
             $parameter = $request->request->get('parameter');
             if ($parameter !== null) {
@@ -239,7 +260,11 @@ class ApiSettingsController extends FOSRestController
      */
     public function patchAction(Request $request, $parameter)
     {
-        //TODO: JCRC: Implementar la seguridad del sistema
+        $utils = $this->get('cf.sclinicbundle.utils');
+        /* Checking security access */
+        if (($accessDeny = $utils->checkSecurity($this->role_name.'EDIT')) !== null) {
+            return $accessDeny;
+        }
         try {
             if ($parameter !== null) {
                 $em = $this->getDoctrine()->getManager();
