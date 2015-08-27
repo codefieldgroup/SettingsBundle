@@ -1,0 +1,3 @@
+##cf.indications_template
+#name
+#cf.indications_template.name.unique: El nombre de la plantilla de indicación ya esta siendo utilizado.
