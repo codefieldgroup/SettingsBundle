@@ -38,7 +38,7 @@ class CfSettingsListener
         if ($json_decode == 1) {
             $result = json_decode($result, true);
         } elseif ($json_decode == 2) {
-            $tmp_result = null;
+            $tmp_result = array();
             /* @var $entity CfSettings */
             foreach ($result as $entity) {
                 $tmp_result [$entity->getParameter()] = $entity->getValue();
