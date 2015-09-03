@@ -123,4 +123,14 @@ class CfSettings
     {
         return $this->description;
     }
+
+    /**
+     * Get Parameters History Log
+     *
+     * @return array
+     */
+    public function getParametersHistoryLog()
+    {
+        return ['parameter', 'value', 'description'];
+    }
 }
