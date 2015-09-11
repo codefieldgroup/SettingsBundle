@@ -53,16 +53,24 @@ class ApiSettingsController extends FOSRestController
     public function cgetAction(Request $request)
     {
         try {
+            $em = $this->getDoctrine()->getManager();
             $utils = $this->get('cf.sclinicbundle.utils');
             $entities = [];
             $code = $request->query->has('code') ? $request->query->get('code') : null;
             switch ($code) {
                 case 'list' :
-                    /* Checking security access */
-                    if (($accessDeny = $utils->checkSecurity($this->role_name.'LIST')) !== null) {
-                        return $accessDeny;
+
+                    if ($request->query->has('search')) {
+                        $search = $request->query->get('search');
+                        $entities = $this->get('cf.settingsbundle')->getSettings($search,1);
+                    } else {
+                        /* Checking security access */
+                        if (($accessDeny = $utils->checkSecurity($this->role_name.'LIST')) !== null) {
+                            return $accessDeny;
+                        }
+                        $entities = $this->get('cf.settingsbundle')->getSettings();
                     }
-                    $entities = $this->get('cf.settingsbundle')->getSettings();
+
                     break;
                 default:
                     break;
@@ -167,6 +175,7 @@ class ApiSettingsController extends FOSRestController
         if (($accessDeny = $utils->checkSecurity($this->role_name.'CREATE')) !== null) {
             return $accessDeny;
         }
+
         return null;
         try {
             $em = $this->getDoctrine()->getManager();
